@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="styles/styles.css"> <!-- Enlazar tu archivo de estilos personalizado -->
 </head>
 <body>
+    
 
 <header>
     <div class="container">
@@ -48,10 +49,7 @@
                 <div class="card-body">
                     <h5 class="card-title text-center mb-4">Envía un correo electrónico</h5>
                     <form action="#" method="post">
-                        <div class="form-group">
-                            <label for="email">Tu correo electrónico</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
+    
                         <div class="form-group">
                             <label for="mensaje">Mensaje</label>
                             <textarea class="form-control" id="mensaje" name="mensaje" rows="5" required></textarea>
@@ -78,6 +76,33 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="main.js" ></script>
+
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var form = document.querySelector("form");
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            var mensaje = document.getElementById("mensaje").value;
+
+            // Utiliza tu Public key proporcionada por EmailJS
+            emailjs.init("esL-bsyJljOtLFTLE");
+
+            // Envía el correo utilizando EmailJS y tu Service ID proporcionado
+            emailjs.send("default_service", "template_dsx4dzf", {
+                mensaje: mensaje
+            }).then(function(response) {
+                console.log("Correo enviado con éxito", response);
+                // Puedes añadir aquí un mensaje de confirmación o redirigir a una página de confirmación
+            }, function(error) {
+                console.error("Error al enviar el correo", error);
+                // Puedes mostrar un mensaje de error al usuario si el correo no se pudo enviar
+            });
+        });
+    });
+</script>
 
 </body>
 </html>
